@@ -1,9 +1,8 @@
 <template>
-  <div
+  <FileDropArea
     class="file-upload-card"
-    @dragover.prevent="drag = true"
-    @dragleave.prevent="drag = false"
-    @drop.prevent="onDrop"
+    :drag.sync="drag"
+    @drop="file = $event"
   >
     <div v-if="!drag">
       ドラッグアンドドロップでファイルを追加
@@ -18,35 +17,22 @@
         クリア
       </button>
     </div>
-  </div>
+  </FileDropArea>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator"
+import FileDropArea from "./FileDropArea.vue"
 
-@Component
+@Component({
+  components: {
+    FileDropArea,
+  },
+})
 export default class FileUploadCard extends Vue {
   drag = false
 
   file: File | null = null
-
-  onDrop(event: DragEvent): void {
-    this.drag = false
-
-    if (!event) {
-      return
-    }
-
-    if (!event.dataTransfer) {
-      return
-    }
-
-    if (event.dataTransfer.files.length === 0) {
-      return
-    }
-
-    this.file = event.dataTransfer.files[0]
-  }
 }
 </script>
 <style lang="scss" scoped>
