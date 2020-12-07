@@ -1,13 +1,18 @@
 <template>
-  <div class="text-red">
-    demo
+  <div class="flex flex-col space-y-5 p-5">
+    <FileUploadCard />
   </div>
 </template>
 
 <script lang="ts">
+import FileUploadCard from "@/components/FileUploadCard.vue"
 import { Component, Vue } from "vue-property-decorator"
 
-@Component({})
+@Component({
+  components: {
+    FileUploadCard,
+  },
+})
 export default class DemoPage extends Vue {}
 </script>
 
